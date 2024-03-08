@@ -6,17 +6,19 @@ ui <- fluidPage(
             helpText(
                 "Create demographic maps with information from the 2010 US Census."
             ),
+            tags$hr(),
 
+            # Note the inputId property
             selectInput(
                 inputId = "var",
-                label = "Choose a variable to display",
+                label = "Choose a variable to display:",
                 choices = c(
                     "Percent White",
                     "Percent Black",
                     "Percent Hispanic",
                     "Percent Asian"
                 ),
-                selected = "Percent White",
+                selected = "Percent White", # default value
             ),
 
             sliderInput(
@@ -24,11 +26,12 @@ ui <- fluidPage(
                 label = "Range of interest:",
                 min = 0,
                 max = 100,
-                value = c(0, 100),
+                value = c(10, 95), # default values for range
             ),
         ),
 
         mainPanel(
+            # Note the outputId property
             textOutput(outputId = "selected_var"),
             hr(),
             textOutput(outputId = "min_max"),
