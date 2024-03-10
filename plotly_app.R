@@ -1,5 +1,6 @@
 library(shiny)
 library(plotly)
+library(DT)
 
 ui <- fluidPage(
 
@@ -28,13 +29,6 @@ ui <- fluidPage(
                 choices = names(mtcars),
                 selected = c("cyl"),
             ),
-
-        # actionButton() to defer the rendering of output until the user
-        # explicitly clicks the button (rather than doing it immediately
-        # when inputs change). This is useful if the computations required
-        # to render output are inordinately time-consuming.
-        actionButton("update", "Update View"),
-
         ),
 
         # Main panel for displaying outputs
@@ -45,7 +39,7 @@ ui <- fluidPage(
                 type = "tabs",
                 tabPanel("Plot", plotlyOutput(outputId = "plot")),
                 tabPanel("Summary", verbatimTextOutput(outputId = "summary")),
-                tabPanel("Table", tableOutput(outputId = "table")),
+                tabPanel("Table", DTOutput(outputId = "table")),
             ),
         ),
     ),
@@ -54,30 +48,19 @@ ui <- fluidPage(
 server <- function(input, output) {
 
     # Filter the dataset based on selected columns and store it as a reactive expression
-    filtered_data <- eventReactive(
-        input$update, {
-            # Plotly input must be a data frame
-            plot_data <- data.frame(
-                x = mtcars[[input$x_var]],
-                y = mtcars[[input$y_var]]
-            )
-            return(plot_data)
-        }
-    )
-
-    # Runs every time the input changes
-    observe({
-        cat(
-            "Selected Variables:",
-            input$x_var, "&", input$y_var,
-            "\n")
+    filtered_data <- reactive({
+        # Plotly input must be a data frame
+        plot_data <- data.frame(
+            x = mtcars[[input$x_var]],
+            y = mtcars[[input$y_var]]
+        )
+        return(plot_data)
     })
 
     # Plotly has it's own reactive function
     output$plot <- renderPlotly({
-
         plot_ly(
-            filtered_data(),
+            data = filtered_data(),
             x = ~ x,
             y = ~ y,
             type = "scatter",
@@ -97,9 +80,18 @@ server <- function(input, output) {
         summary(mtcars)
     })
 
-    # Generate an HTML table view of the data ----
-    output$table <- renderTable({
-        mtcars
+    # Generate a data table
+    output$table <- renderDT({
+        datatable(data = mtcars)
+    })
+    
+    # Runs every time the input changes
+    observe({
+        cat(
+            "Selected Variables:",
+            input$x_var, "&", input$y_var,
+            "\n"
+        )
     })
 }
 
