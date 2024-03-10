@@ -53,24 +53,6 @@ ui <- fluidPage(
 # Server logic
 server <- function(input, output) {
 
-    # output$plot <- renderPlot({
-    #     data <- getSymbols(
-    #         input$symb,
-    #         src = "yahoo",
-    #         from = input$dates[1],
-    #         to = input$dates[2],
-    #         auto.assign = FALSE,
-    #     )
-
-    #     chartSeries(
-    #         data,
-    #         theme = chartTheme("white"),
-    #         type = "line",
-    #         log.scale = input$log,
-    #         TA = NULL,
-    #     )
-    # })
-
     dataInput <- reactive({
         # Download financial data
         getSymbols(
@@ -84,10 +66,19 @@ server <- function(input, output) {
     
     finalInput <- reactive({
         # Adjust or not data
-        if (!input$adjust) return(dataInput())
+        if (!input$adjust)
+            return(dataInput())
         adjust(data = dataInput()) # see helpers.R for the 'adjust' function arguments
     })
-
+    
+    # Runs every time the input changes
+    observe({
+        if (!input$adjust)
+            cat("Prices not adjusted.", "\n")
+        else
+            cat("Prices adjusted.", "\n")
+    })
+    
     output$plot <- renderPlot({
         # Display prices in an attractive chart
         chartSeries(
