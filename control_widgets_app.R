@@ -170,12 +170,11 @@ ui <- fluidPage(
         ),
 
         column(
-            width = 3,
+            width = 6,
             h3("Download button"),
             downloadButton(
                 outputId = "downloadData",
                 label = "Download",
-                value = "Password",
             ),
         ),
 
@@ -184,33 +183,42 @@ ui <- fluidPage(
             passwordInput(
                 inputId = "password",
                 label = h3("Enter password"),
+                placeholder = "Enter password here",
             ),
         ),
 
     ),
+    hr(),
 
     fluidRow(
-        
+        # Widgets without using 'column' function, but inside 'fluidFlow'
+        h4("Widgets without using 'column' function, but inside 'fluidFlow'"),
         downloadButton(
             outputId = "downloadData",
             label = "Download",
-            value = "Password",
         ),
+
         passwordInput(
             inputId = "password",
             label = h3("Enter password"),
+            width = "800px", # or use 800
+            placeholder = "Enter password here",
         ),
     ),
+    hr(),
 
+    # Widget without using the 'column' and 'fluidRow' functions
+    h4("Widget without using the 'column' and 'fluidRow' functions"),
     downloadButton(
         outputId = "downloadData",
         label = "Download",
-        value = "Password",
     ),
 
     passwordInput(
         inputId = "password",
         label = h3("Enter password"),
+        value = "The password is hidden",
+        width = "100%",
     ),
 )
 
