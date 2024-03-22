@@ -37,9 +37,9 @@ ui <- fluidPage(
             # Display output in different tabs
             tabsetPanel(
                 type = "tabs",
-                tabPanel("Plot", plotlyOutput(outputId = "plot")),
-                tabPanel("Summary", verbatimTextOutput(outputId = "summary")),
-                tabPanel("Table", DTOutput(outputId = "table")),
+                tabPanel(title = "Plot", plotlyOutput(outputId = "plot")),
+                tabPanel(title = "Summary", verbatimTextOutput(outputId = "summary")),
+                tabPanel(title = "Table", DTOutput(outputId = "table")),
             ),
         ),
     ),
@@ -95,4 +95,4 @@ server <- function(input, output) {
     })
 }
 
-shinyApp(ui, server)
+shinyApp(ui = ui, server = server)
