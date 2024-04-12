@@ -4,7 +4,7 @@ library(DT)
 
 ui <- fluidPage(
 
-    # App title
+    # App title here
     titlePanel("Plotly Interactive Plot"),
     
     # Sidebar layout with input and output definitions

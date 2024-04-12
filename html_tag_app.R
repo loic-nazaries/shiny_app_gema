@@ -10,7 +10,7 @@ ui <- fluidPage(
         ),
 
         mainPanel(
-            # position="right",
+            # position="left",
             h1("First level title"),
             hr(), # horizontal line
             h2("Second level title", align = "center"),
