@@ -15,7 +15,7 @@ ui <- fluidPage(
             img(src = "rstudio.png", height = 70, width = 200),
             br(),
             "Shiny is a product of ",
-            span("RStudio", style = "color:blue")
+            span("RStudio", style = "color:green")
         ),
         mainPanel(
             h1("Introducing Shiny"),

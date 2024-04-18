@@ -24,7 +24,7 @@ ui <- navbarPage(
 
     navlistPanel(
         "Header",
-        tabPanel("First"),
+        tabPanel("First", "🍌"),
         tabPanel("Second"),
         tabPanel("Third")
     ),
