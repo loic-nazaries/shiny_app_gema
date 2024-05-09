@@ -18,7 +18,10 @@ thematic_shiny(font = "auto")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-    theme = bs_theme(preset = "darkly"),
+    theme = bs_theme(
+        # preset = "darkly",
+        bg = "#0b3d91", fg = "white", primary = "#FCC780",
+    ),
 
     # Application title
     titlePanel("Old Faithful Geyser Data"),
