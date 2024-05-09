@@ -9,10 +9,16 @@
 
 library(shiny)
 library(bslib)
+library(thematic)
+
+# Call thematic_shiny() prior to launching the app, to change
+# R plot theming defaults for all the plots generated in the app
+thematic_shiny(font = "auto")
+
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-    theme = bs_theme(preset = "vapor"),
+    theme = bs_theme(preset = "darkly"),
 
     # Application title
     titlePanel("Old Faithful Geyser Data"),
